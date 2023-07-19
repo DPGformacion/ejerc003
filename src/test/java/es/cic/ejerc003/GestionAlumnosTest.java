@@ -2,6 +2,7 @@ package es.cic.ejerc003;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -9,11 +10,6 @@ import org.junit.jupiter.api.Test;
 class GestionAlumnosTest {
 
 	GestionAlumnos gestAlum = new GestionAlumnos();
-
-	@Test
-	void testObtenerDatos() {
-
-	}
 
 	@Test
 	void testCrearAlumno() {
@@ -51,8 +47,8 @@ class GestionAlumnosTest {
 	}
 
 	@Test
-	void testGuardarDatos() {
-
+	void testObtenerRuta() {
+		File csv = new File(gestAlum.obtenerRuta());
+		assertTrue(csv.exists());
 	}
-
 }

@@ -2,6 +2,7 @@ package es.cic.ejerc003;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,18 +42,19 @@ public class GestionAlumnos {
 
 		try {
 
-			FileReader fr = new FileReader("/home/d/Desktop/Alumnos");
+			FileReader fr = new FileReader(obtenerRuta());
 			BufferedReader lecturaDatos = new BufferedReader(fr);
-			String[] linea = new String[4];
+			String linea = "";
+			String[] columna = new String[4];
 
 			lecturaDatos.readLine();
 
 			while (lecturaDatos.ready()) {
 
-				for (int i = 0; i < 4; i++) {
-					linea[i] = lecturaDatos.readLine();
-				}
-				lista.add(new Alumnos(Integer.parseInt(linea[0]), linea[1], Integer.parseInt(linea[2]), linea[3]));
+				linea = lecturaDatos.readLine();
+				columna = linea.split(",");
+				lista.add(new Alumnos(Integer.parseInt(columna[0]), columna[1], Integer.parseInt(columna[2]),
+						columna[3]));
 			}
 			lecturaDatos.close();
 		} catch (IOException e) {
@@ -65,10 +67,10 @@ public class GestionAlumnos {
 	public void GuardarDatos(List<Alumnos> listado) {
 		try {
 
-			FileWriter fw = new FileWriter("/home/d/Desktop/Alumnos");
+			FileWriter fw = new FileWriter(obtenerRuta());
 			BufferedWriter escrituraDatos = new BufferedWriter(fw);
 
-			escrituraDatos.write("ID , NOMBRE , CONTACTO , NOTA\n");
+			escrituraDatos.write("ID,NOMBRE,CONTACTO,NOTA");
 
 			for (Alumnos l : listado) {
 				escrituraDatos.write(l.toString());
@@ -78,6 +80,13 @@ public class GestionAlumnos {
 		} catch (IOException e) {
 
 		}
+	}
+
+	public String obtenerRuta() {
+
+		String separador = "" + File.separatorChar;
+		String ruta = "src" + separador + "test" + separador + "resources" + separador + "Alumnos.csv";
+		return ruta;
 	}
 
 }
